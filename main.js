@@ -1,19 +1,18 @@
-var skipIntroButton = ''
+var skipIntroButton = '';
+
 const observer = new MutationObserver(function (mutations) {
-  skipIntroButton = document.querySelector('.button-primary.watch-video--skip-content-button')
+  // Look for skip buttons with different class names or attributes
+  skipIntroButton = document.querySelector(
+    '.button-primary.watch-video--skip-content-button, [dataUia="player-skip-content"], [dataUia="player-skip-recap"], [dataUia="player-skip-intro"]'
+  );
   if (skipIntroButton !== null) {
-    skipIntroButton.click()
+    skipIntroButton.click();
     observer.disconnect();
   }
-}) 
+});
+
+// Immediately start observing for changes in the DOM
 observer.observe(document.documentElement, {
-  attributes: true,
-  characterData: true,
   childList: true,
   subtree: true,
-  attributeOldValue: true,
-  characterDataOldValue: true
-})
-
-
-
+});
